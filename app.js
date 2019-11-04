@@ -9,6 +9,6 @@ var weixin = require('./weixin');
 var app = new Koa();
 app.use(generator(config.wechat,weixin.reply))
 app.use(weixin.setMenu);//自定义菜单
-app.listen(80);
+app.listen(9000);
 
-console.log('Listening 80')
+console.log('Listening 9000')
