@@ -1,4 +1,4 @@
-var PORT = 80; //监听8080端口号
+var PORT = 9000; //监听8080端口号
 var http = require('http');
 var qs = require('qs');
 var TOKEN = 'YHL'; //必须与测试号所填写的Token相同
