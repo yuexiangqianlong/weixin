@@ -100,9 +100,9 @@ exports.reply = function*(next) {
             var msg = yield wechatApi.massSendMsg('text', text, 114);
             console.log('msg:' + JSON.stringify(msg));
         } else if (content === '最新') {
-            console.log('ffffffffffffff')
             var movieList = yield crawler.getCrawlMovieList('V1001_TODAY_LATEST'); //获取点击事件
             var messages = []
+            console.log(movieList)
             if (movieList instanceof Array) {
                 movieList.forEach(function(item) {
                     var msg = {
@@ -116,6 +116,7 @@ exports.reply = function*(next) {
                 });
 
             }
+            console.log(messages);
             this.body = messages;
 
         }
