@@ -40,108 +40,108 @@ exports.reply = function*(next) {
         //                  }
         // 	this.body = messages;
         // }
-    } else if (message.Event === 'SCAN') {
-        this.body = '关注后扫描二维码：' + message.Ticket;
-    }
-}
-else if (message.MsgType === 'text') {
-    var content = message.Content;
-    var reply = '你说的话：“' + content + '”，我听不懂呀';
-    if (content === '1') {
-        reply = '金刚:骷髅岛';
-    } else if (content === '2') {
-        var data = yield wechatApi.uploadTempMaterial('image', __dirname + '/public/king.jpg');
-        console.log(data)
-        reply = {
-            type: 'image',
-            mediaId: data.media_id
+        // }
+        else if (message.Event === 'SCAN') {
+            this.body = '关注后扫描二维码：' + message.Ticket;
         }
-        //mediaId是一长串字符：ZnQUQks2KrDL8sTxh6tnkFHl-XEOTK-tFmDEo_g0NmCKt1XKlphpLkvcDsNuUC4l
-    } else if (content === '3') {
-        var data = yield wechatApi.uploadTempMaterial('voice', __dirname + '/public/aiyou.mp3');
-        reply = {
-            type: 'voice',
-            mediaId: data.media_id
+    } else if (message.MsgType === 'text') {
+        var content = message.Content;
+        var reply = '你说的话：“' + content + '”，我听不懂呀';
+        if (content === '1') {
+            reply = '金刚:骷髅岛';
+        } else if (content === '2') {
+            var data = yield wechatApi.uploadTempMaterial('image', __dirname + '/public/king.jpg');
+            console.log(data)
+            reply = {
+                type: 'image',
+                mediaId: data.media_id
+            }
+            //mediaId是一长串字符：ZnQUQks2KrDL8sTxh6tnkFHl-XEOTK-tFmDEo_g0NmCKt1XKlphpLkvcDsNuUC4l
+        } else if (content === '3') {
+            var data = yield wechatApi.uploadTempMaterial('voice', __dirname + '/public/aiyou.mp3');
+            reply = {
+                type: 'voice',
+                mediaId: data.media_id
+            }
+        } else if (content === '4') {
+            reply = [{
+                title: '金刚.骷髅岛',
+                description: '南太平洋上的神秘岛屿——骷髅岛。史上最大金刚与邪恶骷髅蜥蜴的较量。',
+                picUrl: 'http://www.avgchannel.com/sites/default/files/styles/full/public/image/attached/1375-jg2.jpg',
+                url: 'http://www.jndy8.com/jxplay.asp?id=1326&j=1'
+            }];
+        } else if (content === '5') {
+            var groups = yield wechatApi.getGroups();
+            console.log('获取到如下分组：\n' + JSON.stringify(groups));
+        } else if (content === '6') {
+            var msg = yield wechatApi.moveUsersToGroup(message.FromUserName, 114);
+            var groups = yield wechatApi.getGroups();
+            console.log('获取到如下分组：\n' + JSON.stringify(groups));
+        } else if (content === '7') {
+            var remark = yield wechatApi.updateUserRemark(message.FromUserName, '芒果屋里的猫');
+            reply = "您的备注名已经被设置为：" + remark;
+        } else if (content === '8') {
+            var data1 = yield wechatApi.fetchUserInfo(message.FromUserName);
+            console.log(JSON.stringify(data1));
+            var data2 = yield wechatApi.fetchUserInfo([message.FromUserName]);
+            console.log(JSON.stringify(data2))
+        } else if (content === '9') {
+            var data1 = yield wechatApi.getUserOpenIds();
+            console.log(JSON.stringify(data1));
+            var data2 = yield wechatApi.getUserOpenIds(message.FromUserName);
+            console.log(JSON.stringify(data2));
+        } else if (content === '10') {
+            var data = yield wechatApi.getMenu();
+            console.log(JSON.stringify(data));
+        } else if (content === '11') {
+            var text = {
+                content: '这是群发消息测试唔~'
+            };
+            var msg = yield wechatApi.massSendMsg('text', text, 114);
+            console.log('msg:' + JSON.stringify(msg));
+        } else if (content === '最新') {
+            console.log('ffffffffffffff')
+            var movieList = yield crawler.getCrawlMovieList('V1001_TODAY_LATEST'); //获取点击事件
+            var messages = []
+            if (movieList instanceof Array) {
+                movieList.forEach(function(item) {
+                    var msg = {
+                        title: item.name,
+                        description: item.ftp,
+                        picUrl: item.img,
+                        url: item.link
+                    }
+                    messages.push(msg);
+
+                });
+
+            }
+            this.body = messages;
+
         }
-    } else if (content === '4') {
-        reply = [{
-            title: '金刚.骷髅岛',
-            description: '南太平洋上的神秘岛屿——骷髅岛。史上最大金刚与邪恶骷髅蜥蜴的较量。',
-            picUrl: 'http://www.avgchannel.com/sites/default/files/styles/full/public/image/attached/1375-jg2.jpg',
-            url: 'http://www.jndy8.com/jxplay.asp?id=1326&j=1'
-        }];
-    } else if (content === '5') {
-        var groups = yield wechatApi.getGroups();
-        console.log('获取到如下分组：\n' + JSON.stringify(groups));
-    } else if (content === '6') {
-        var msg = yield wechatApi.moveUsersToGroup(message.FromUserName, 114);
-        var groups = yield wechatApi.getGroups();
-        console.log('获取到如下分组：\n' + JSON.stringify(groups));
-    } else if (content === '7') {
-        var remark = yield wechatApi.updateUserRemark(message.FromUserName, '芒果屋里的猫');
-        reply = "您的备注名已经被设置为：" + remark;
-    } else if (content === '8') {
-        var data1 = yield wechatApi.fetchUserInfo(message.FromUserName);
-        console.log(JSON.stringify(data1));
-        var data2 = yield wechatApi.fetchUserInfo([message.FromUserName]);
-        console.log(JSON.stringify(data2))
-    } else if (content === '9') {
-        var data1 = yield wechatApi.getUserOpenIds();
-        console.log(JSON.stringify(data1));
-        var data2 = yield wechatApi.getUserOpenIds(message.FromUserName);
-        console.log(JSON.stringify(data2));
-    } else if (content === '10') {
-        var data = yield wechatApi.getMenu();
-        console.log(JSON.stringify(data));
-    } else if (content === '11') {
-        var text = {
-            content: '这是群发消息测试唔~'
-        };
-        var msg = yield wechatApi.massSendMsg('text', text, 114);
-        console.log('msg:' + JSON.stringify(msg));
-    } else if (content === '最新') {
-        console.log('ffffffffffffff')
-        var movieList = yield crawler.getCrawlMovieList('V1001_TODAY_LATEST'); //获取点击事件
-        var messages = []
-        if (movieList instanceof Array) {
-            movieList.forEach(function(item) {
-                var msg = {
-                    title: item.name,
-                    description: item.ftp,
-                    picUrl: item.img,
-                    url: item.link
-                }
-                messages.push(msg);
-
-            });
-
+        /*
+        	注意：
+        	如果是被动回复视频消息，不建议在用户发送数字后上传资源再回复用户，
+        	上传视频需要时间，如果未能在5秒内回复用户的消息，微信会提示系统服务不可用，
+        	所以视频必须是提前先上传好的，只需要获取其media_id，再回复用户就可以。
+        */
+        /*
+        else if(content === '12'){
+        	var data = yield wechatApi.uploadTempMaterial('video', __dirname + '/public/vuejs.mp4');
+        	console.log(data);
+        	reply = {
+        		type: 'video',
+        		title: 'vuejs',
+        		description: 'vuejs入门介绍',
+        		mediaId: data.media_id
+        	}
+        	console.log(reply);
         }
-        this.body = messages;
-
+        */
+        // ... 其他回复类型
+        this.body = reply;
     }
-    /*
-    	注意：
-    	如果是被动回复视频消息，不建议在用户发送数字后上传资源再回复用户，
-    	上传视频需要时间，如果未能在5秒内回复用户的消息，微信会提示系统服务不可用，
-    	所以视频必须是提前先上传好的，只需要获取其media_id，再回复用户就可以。
-    */
-    /*
-    else if(content === '12'){
-    	var data = yield wechatApi.uploadTempMaterial('video', __dirname + '/public/vuejs.mp4');
-    	console.log(data);
-    	reply = {
-    		type: 'video',
-    		title: 'vuejs',
-    		description: 'vuejs入门介绍',
-    		mediaId: data.media_id
-    	}
-    	console.log(reply);
-    }
-    */
-    // ... 其他回复类型
-    this.body = reply;
-}
-yield next;
+    yield next;
 }
 
 function isObjectValueEqual(a, b) {
