@@ -26,9 +26,11 @@ function getTodayLatest(){
 			}else{
 				var $ = cheerio.load(body);
 				var movieLists = [];
-				var _movieList = $('#iml1').children("ul").first().find('li');
+				console.log($)
+				var _movieList = $("div.m-recom").children('ul').first().find('li');
 				_movieList.each(function(item){
 					var time = $(this).find('span font').html() ? $(this).find('span font').html() : $(this).find('span').html();
+					debugger;
 					if((new Date() - new Date(time)) < 259200000){  // 3 days
 						var dom = $(this).find('a').first();
 						var link = URL + $(dom).attr('href');
