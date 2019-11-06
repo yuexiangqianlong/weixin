@@ -108,7 +108,26 @@ exports.reply = function* (next){
 	   	};
 			var msg = yield wechatApi.massSendMsg('text',text,114);
 			console.log('msg:'+ JSON.stringify(msg));
+		}else if(content === '最新') {
+			var movieList = yield crawler.getCrawlMovieList('V1001_TODAY_LATEST'); //获取点击事件
+                var messages = []
+                if (movieList instanceof Array) {
+                    movieList.forEach(function(item) {
+                        var msg = {
+                            title: item.name,
+                            description: item.ftp,
+                            picUrl: item.img,
+                            url: item.link
+                        }
+                        messages.push(msg);
+
+                    });
+
+                }
+                this.body = messages;
+
 		}
+	console.log(content);	
 		/*
 			注意：
 			如果是被动回复视频消息，不建议在用户发送数字后上传资源再回复用户，
