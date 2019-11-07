@@ -111,7 +111,6 @@ exports.reply = function*(next) {
                         url: item.link
                     }
                     messages.push(msg);
-
                 });
 
             }
