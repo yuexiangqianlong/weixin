@@ -29,23 +29,39 @@ function getTodayLatest() {
                 var $ = cheerio.load(body);
                 var movieLists = [];
                 var _movieList = $("div.m-recom").children('ul').first().find('li');
-                _movieList.each(function(item) {
+                _movieList.each(function(index, item) {
                     var time = $(this).find('span font').html() ? $(this).find('span font').html() : $(this).find('span').html();
-                    // if((new Date() - new Date(time)) < 259200000){  // 3 days
-                    var dom = $(this).find('a').first();
-                    var link = URL + $(dom).attr('href');
-                    var img = $(dom).find('img').attr('src');
-                    var name = $(dom).find('img').attr('alt').substr(22).replace('</font>', '');
-                    if (name) {
-                        var movie = {
-                            name: name,
-                            img: img,
-                            link: link,
-                            time: time,
+                    if ((new Date() - new Date(time)) < 259200000) { // 3 days
+                        var dom = $(this).find('a').first();
+                        var link = URL + $(dom).attr('href');
+                        var img = $(dom).find('img').attr('src');
+                        var name = $(dom).find('img').attr('alt').substr(22).replace('</font>', '');
+                        if (name) {
+                            var movie = {
+                                name: name,
+                                img: img,
+                                link: link,
+                                time: time,
+                            }
                         }
+                        movieLists.push(movie);
+                    };
+                    debugger;
+                    if ((index + 1) === _movieList.length && movieLists.length === 0) {
+                        var dom = $(this).find('a').first();
+                        var link = URL + $(dom).attr('href');
+                        var img = $(dom).find('img').attr('src');
+                        var name = $(dom).find('img').attr('alt').substr(22).replace('</font>', '');
+                        if (name) {
+                            var movie = {
+                                name: name,
+                                img: img,
+                                link: link,
+                                time: time,
+                            }
+                        }
+                        movieLists.push(movie);
                     }
-                    movieLists.push(movie);
-                    // };
                 });
                 resolve(movieLists);
             }
