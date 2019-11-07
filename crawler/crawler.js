@@ -47,8 +47,7 @@ function getTodayLatest() {
                         movieLists.push(movie);
                     };
                     if ((index + 1) === _movieList.length && movieLists.length === 0) {
-                        this = _movieList[0];
-                        var dom = $(this).find('a').first();
+                        var dom = $(_movieList[0]).find('a').first();
                         var link = URL + $(dom).attr('href');
                         var img = $(dom).find('img').attr('src');
                         var name = $(dom).find('img').attr('alt').substr(22).replace('</font>', '');
