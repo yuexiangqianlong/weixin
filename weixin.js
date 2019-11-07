@@ -115,9 +115,8 @@ exports.reply = function*(next) {
                 });
 
             }
-            console.log(messages);
             this.body = messages;
-
+            return
         }
         /*
         	注意：
