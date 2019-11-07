@@ -62,7 +62,6 @@ function getTodayLatest() {
                         movieLists.push(movie);
                     }
                 });
-                debugger
                 resolve(movieLists);
             }
         });
