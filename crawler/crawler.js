@@ -10,7 +10,8 @@ function getftpLink(link) {
             if (!err && res.statusCode == 200) {
                 var $ = cheerio.load(body);
                 // var ftp = $('#showinfo').find('table tbody tr td a').html();
-                var ftp = $('div.bot').find('a').html();
+                var ftp = $('div.bot').find('a').text();
+
                 resolve(ftp);
             } else {
                 resolve("sssss")
@@ -157,7 +158,7 @@ exports.getCrawlMovieList = function*(eventKey) {
     }
     for (var i = 0; i < movieList.length; i++) {
         var ftp = yield getftpLink(movieList[i].link);
-        movieList[i].ftp = unescape(ftp.replace(/;/g, '').replace(/&#x/g, "%u"));
+        movieList[i].ftp = ftp.replace(/最新电影下载/g, '');
     }
     return movieList;
 }
