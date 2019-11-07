@@ -9,7 +9,8 @@ function getftpLink(link) {
         request.get(link, function(err, res, body) {
             if (!err && res.statusCode == 200) {
                 var $ = cheerio.load(body);
-                var ftp = $('#showinfo').find('table tbody tr td a').html();
+                // var ftp = $('#showinfo').find('table tbody tr td a').html();
+                var ftp = $('div.bot').find('a').html();
                 resolve(ftp);
             } else {
                 resolve("sssss")
