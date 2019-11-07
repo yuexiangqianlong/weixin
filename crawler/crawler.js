@@ -29,7 +29,9 @@ function getTodayLatest() {
                 var $ = cheerio.load(body);
                 var movieLists = [];
                 var _movieList = $("div.m-recom").children('ul').first().find('li');
-                _movieList.each(function(index, item) {
+                var i = 0
+                _movieList.each(function(item) {
+                    i++;
                     var time = $(this).find('span font').html() ? $(this).find('span font').html() : $(this).find('span').html();
                     if ((new Date() - new Date(time)) < 259200000) { // 3 days
                         var dom = $(this).find('a').first();
@@ -47,7 +49,7 @@ function getTodayLatest() {
                         movieLists.push(movie);
                     };
                     debugger;
-                    if ((index + 1) === _movieList.length && movieLists.length === 0) {
+                    if ((i + 1) === _movieList.length && movieLists.length === 0) {
                         var dom = $(this).find('a').first();
                         var link = URL + $(dom).attr('href');
                         var img = $(dom).find('img').attr('src');
