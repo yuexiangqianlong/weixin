@@ -65,44 +65,43 @@ exports.reply = function*(next) {
             }
         } else if (content === '4') {
             reply = [{
-                title: '金刚.骷髅岛',
-                description: '南太平洋上的神秘岛屿——骷髅岛。史上最大金刚与邪恶骷髅蜥蜴的较量。',
-                picUrl: 'http://www.avgchannel.com/sites/default/files/styles/full/public/image/attached/1375-jg2.jpg',
-                url: 'http://www.jndy8.com/jxplay.asp?id=1326&j=1'
+                title: '在黑暗中讲述的恐怖',
+                description: 'magnet:?xt=urn:btih:ccea6d0a73ec90db80d6400e97dd1f9fb1c9f506&dn=在黑暗中讲述的恐怖故事BD中英双字[飘花www.piaohua.com].mp4',
+                picUrl: 'https://imgs.kabc688.com/0701pic/19/4-191011111922614-lp.jpg',
+                url: 'http://www.piaohua.com//html/kongbu/2019/1011/42706.html'
             }];
-        } else if (content === '5') {
-            var groups = yield wechatApi.getGroups();
-            console.log('获取到如下分组：\n' + JSON.stringify(groups));
-        } else if (content === '6') {
-            var msg = yield wechatApi.moveUsersToGroup(message.FromUserName, 114);
-            var groups = yield wechatApi.getGroups();
-            console.log('获取到如下分组：\n' + JSON.stringify(groups));
-        } else if (content === '7') {
-            var remark = yield wechatApi.updateUserRemark(message.FromUserName, '芒果屋里的猫');
-            reply = "您的备注名已经被设置为：" + remark;
-        } else if (content === '8') {
-            var data1 = yield wechatApi.fetchUserInfo(message.FromUserName);
-            console.log(JSON.stringify(data1));
-            var data2 = yield wechatApi.fetchUserInfo([message.FromUserName]);
-            console.log(JSON.stringify(data2))
-        } else if (content === '9') {
-            var data1 = yield wechatApi.getUserOpenIds();
-            console.log(JSON.stringify(data1));
-            var data2 = yield wechatApi.getUserOpenIds(message.FromUserName);
-            console.log(JSON.stringify(data2));
-        } else if (content === '10') {
-            var data = yield wechatApi.getMenu();
-            console.log(JSON.stringify(data));
-        } else if (content === '11') {
+        } //else if (content === '5') {
+        //     var groups = yield wechatApi.getGroups();
+        //     console.log('获取到如下分组：\n' + JSON.stringify(groups));
+        // } else if (content === '6') {
+        //     var msg = yield wechatApi.moveUsersToGroup(message.FromUserName, 114);
+        //     var groups = yield wechatApi.getGroups();
+        //     console.log('获取到如下分组：\n' + JSON.stringify(groups));
+        // } else if (content === '7') {
+        //     var remark = yield wechatApi.updateUserRemark(message.FromUserName, '芒果屋里的猫');
+        //     reply = "您的备注名已经被设置为：" + remark;
+        // } else if (content === '8') {
+        //     var data1 = yield wechatApi.fetchUserInfo(message.FromUserName);
+        //     console.log(JSON.stringify(data1));
+        //     var data2 = yield wechatApi.fetchUserInfo([message.FromUserName]);
+        //     console.log(JSON.stringify(data2))
+        // } else if (content === '9') {
+        //     var data1 = yield wechatApi.getUserOpenIds();
+        //     console.log(JSON.stringify(data1));
+        //     var data2 = yield wechatApi.getUserOpenIds(message.FromUserName);
+        //     console.log(JSON.stringify(data2));
+        // } else if (content === '10') {
+        //     var data = yield wechatApi.getMenu();
+        //     console.log(JSON.stringify(data));
+        //}
+        else if (content === '11') {
             var text = {
                 content: '这是群发消息测试唔~'
             };
             var msg = yield wechatApi.massSendMsg('text', text, 114);
-            console.log('msg:' + JSON.stringify(msg));
         } else if (content === '最新') {
             var movieList = yield crawler.getCrawlMovieList('V1001_TODAY_LATEST'); //获取点击事件
             var messages = []
-            console.log(movieList)
             if (movieList instanceof Array) {
                 movieList.forEach(function(item) {
                     var msg = {
