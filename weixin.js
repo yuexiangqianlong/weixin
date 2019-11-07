@@ -65,18 +65,16 @@ exports.reply = function*(next) {
             }
         } else if (content === '4') {
             reply = [{
-                    title: '在黑暗中讲述的恐怖',
-                    description: 'magnet:?xt=urn:btih:ccea6d0a73ec90db80d6400e97dd1f9fb1c9f506&dn=在黑暗中讲述的恐怖故事BD中英双字[飘花www.piaohua.com].mp4',
-                    picUrl: 'https://imgs.kabc688.com/0701pic/19/4-191011111922614-lp.jpg',
-                    url: 'http://www.piaohua.com//html/kongbu/2019/1011/42706.html'
-                },
-                {
-                    title: '哪吒之魔童降世',
-                    description: 'magnet:?xt=urn:btih:be809309536ca24c87596dd7e7714ca2fdce1fe5&dn=哪吒之魔童降世HD国语中字[飘花www.piaohua.com].mkv',
-                    picUrl: 'https://imgs.kabc688.com/0701pic/19/19/4-19101120524R61.jpg',
-                    url: 'http://www.piaohua.com//html/xiju/2019/1011/42708.html'
-                }
-            ];
+                title: '哪吒之魔童降世',
+                description: 'magnet:?xt=urn:btih:be809309536ca24c87596dd7e7714ca2fdce1fe5&dn=哪吒之魔童降世HD国语中字[飘花www.piaohua.com].mkv',
+                picUrl: 'https://imgs.kabc688.com/0701pic/19/19/4-19101120524R61.jpg',
+                url: 'http://www.piaohua.com//html/xiju/2019/1011/42708.html'
+            }, {
+                title: '在黑暗中讲述的恐怖',
+                description: 'magnet:?xt=urn:btih:ccea6d0a73ec90db80d6400e97dd1f9fb1c9f506&dn=在黑暗中讲述的恐怖故事BD中英双字[飘花www.piaohua.com].mp4',
+                picUrl: 'https://imgs.kabc688.com/0701pic/19/4-191011111922614-lp.jpg',
+                url: 'http://www.piaohua.com//html/kongbu/2019/1011/42706.html'
+            }];
         } //else if (content === '5') {
         //     var groups = yield wechatApi.getGroups();
         //     console.log('获取到如下分组：\n' + JSON.stringify(groups));
